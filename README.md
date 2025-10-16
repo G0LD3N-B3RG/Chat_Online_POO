@@ -14,15 +14,15 @@ Chat Room/
 ├── casos_de_uso.png        # Diagrama de casos de uso
 ├── diagrama_classes.png    # Diagrama de classes
 ├── README.md               # Este arquivo
-└── package/
+└── src/
     ├── controlador.py      # Controlador principal do cliente
-    ├── gui/
+    ├── GUI/
     │   ├── __init__.py
     │   ├── janela_base.py
     │   ├── janela_login.py
     │   ├── janela_chat.py
     │   └── redimensionavel_mixin.py
-    └── modelos/
+    └── models/
         ├── __init__.py
         ├── usuario.py
         ├── mensagem.py
