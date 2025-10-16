@@ -1,0 +1,44 @@
+@startuml CasosDeUso
+!theme plain
+
+left to right direction
+' Layout horizontal para melhor visualizacao
+
+actor "Usuario" as U
+actor "Sistema" as S
+
+rectangle "Chat Online" {
+  usecase "Login" as UC1
+  usecase "Entrar no Chat" as UC2
+  usecase "Enviar Mensagem" as UC3
+  usecase "Receber Mensagens" as UC4
+  usecase "Redimensionar Janela" as UC5
+  usecase "Sair do Chat" as UC6
+}
+
+' Relacionamentos
+U --> UC1
+U --> UC2
+U --> UC3
+U --> UC5
+U --> UC6
+
+S --> UC4
+' Sistema gerencia recebimento
+
+' Dependencias (inclui/extende)
+UC2 ..> UC1 : <<include>>
+' (requer login)
+UC3 ..> UC2 : <<include>>
+' (requer estar no chat)
+UC4 ..> UC3 : <<extend>>
+' (broadcast de envios)
+UC6 ..> UC2 : <<include>>
+' (fecha chat)
+
+note right of UC1 : Valida nome nao vazio e transita para chat
+note right of UC3 : Envia via socket e exibe localmente
+note right of UC4 : Escuta thread e atualiza GUI
+note right of UC5 : Via mixin para redimensionamento dinamico
+
+@enduml

@@ -1,0 +1,94 @@
+@startuml DiagramaClasses
+!theme plain
+
+' Classes da GUI
+class JanelaBase {
+  - root: Tk
+  + __init__()
+  + iniciar()
+}
+
+class JanelaLogin {
+  - controlador: ControladorChat
+  - label: Label
+  - entrada_usuario: Entry
+  - botao_entrar: Button
+  + __init__(controlador: ControladorChat)
+  + entrar_chat()
+}
+
+class JanelaChat {
+  - usuario: Usuario
+  - controlador: ControladorChat
+  - frame_chat: Frame
+  - texto_chat: ScrolledText
+  - frame_input: Frame
+  - entrada_mensagem: Entry
+  + __init__(usuario: Usuario, controlador: ControladorChat)
+  + exibir_mensagem(mensagem: Mensagem)
+  + enviar_mensagem(event)
+}
+
+class RedimensionavelMixin {
+  + permitir_redimensionamento()
+}
+
+' Classes dos Modelos
+class Usuario {
+  - nome: str
+  - mensagens_enviadas: list[Mensagem]
+  + __init__(nome: str)
+}
+
+class Mensagem {
+  - conteudo: str
+  - remetente: Usuario
+  - timestamp: str
+  + __init__(conteudo: str, remetente: Usuario)
+}
+
+class Chat {
+  - usuarios: list[Usuario]
+  - mensagens: list[Mensagem]
+  + __init__()
+  + adicionar_usuario(usuario: Usuario)
+  + adicionar_mensagem(mensagem: Mensagem)
+}
+
+' Classe Controlador
+class ControladorChat {
+  - usuario: Usuario
+  - socket: Socket
+  - janela_login: JanelaLogin
+  - janela_chat: JanelaChat
+  + __init__()
+  + iniciar()
+  + iniciar_chat(nome_usuario: str)
+  + enviar_mensagem(conteudo: str)
+  + ouvir_mensagens()
+}
+
+' Relacionamentos
+' Heranca GUI
+JanelaLogin -|> JanelaBase
+JanelaChat -|> JanelaBase
+JanelaChat -|> RedimensionavelMixin
+
+' Associacoes GUI-Controller
+JanelaLogin ..> ControladorChat : usa
+JanelaChat ..> ControladorChat : usa
+JanelaChat ..> Usuario : usa
+
+' Composicao Modelos
+Mensagem *-- Usuario : contem
+Chat o-- Usuario : gerencia (1..*)
+Chat o-- Mensagem : gerencia (1..*)
+
+' Associacoes Controlador-Modelos/GUI
+ControladorChat ..> Usuario : usa
+ControladorChat ..> Mensagem : usa
+ControladorChat ..> JanelaLogin : usa
+ControladorChat ..> JanelaChat : usa
+ControladorChat ..> Chat : usa
+
+@enduml
