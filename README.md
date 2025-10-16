@@ -16,7 +16,7 @@ Chat Room/
 ├── README.md               # Este arquivo
 └── src/
     ├── controlador.py      # Controlador principal do cliente
-    ├── GUI/
+    ├── gui/
     │   ├── __init__.py
     │   ├── janela_base.py
     │   ├── janela_login.py

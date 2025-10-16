@@ -3,7 +3,7 @@ import socket
 import threading
 import json
 from src.models import Usuario, Mensagem
-from src.GUI import JanelaLogin, JanelaChat
+from src.gui import JanelaLogin, JanelaChat
 
 
 class ControladorChat:
