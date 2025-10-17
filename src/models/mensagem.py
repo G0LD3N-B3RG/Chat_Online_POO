@@ -1,4 +1,4 @@
-# modelos/mensagem.py
+# models/mensagem.py
 from datetime import datetime
 
 

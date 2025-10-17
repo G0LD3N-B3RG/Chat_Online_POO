@@ -1,4 +1,4 @@
-# modelos/chat.py
+# models/chat.py
 class Chat:
     def __init__(self):
         self.usuarios = []
